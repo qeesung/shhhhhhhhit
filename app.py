@@ -24,14 +24,27 @@ def initialize_board(toilets):
         if trigger_pin and echo_pin:
             print ">>> initializing the toilet %s" % (toilet_name)
             initialize_pin(trigger_pin, echo_pin)
-     
+
+def observe_toilets_status(toilets):
+    """sample the toilets gate distance forever"""
+    print ">>> observing all toilets status..."
+    try:
+        while True:
+            for toilet in toilets:
+                toilet_name=toilet.get(KEY_TOILET_NAME)
+                print 'Toilet %s distance: %0.2f cm' % (toilet_name, sample_toilet_distance(toilet))
+            time.sleep(1)
+    except KeyboardInterrupt:
+        GPIO.cleanup()
+
+def sample_toilet_distance(toilet):
+    """sample the toilet gate distance"""
+    trigger_pin=toilet.get(KEY_TOILET_TRIGGER_PIN)
+    echo_pin=toilet.get(KEY_TOILET_ECHO_PIN)
+    return check_distance(trigger_pin, echo_pin)
+
 initialize_board(TOILETS)     
+observe_toilets_status(TOILETS)
 
 
 time.sleep(2)
-try:
-        while True:
-                print 'Distance: %0.2f cm' %check_distance(2, 3)
-                time.sleep(1)
-except KeyboardInterrupt:
-        GPIO.cleanup()
