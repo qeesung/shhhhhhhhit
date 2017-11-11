@@ -5,6 +5,8 @@ import RPi.GPIO as GPIO
 from distance import *
 import time
 from toilet_config import *
+from toilet_logger import *
+import datetime
 
 
 def initialize_pin(trigger_pin, echo_pin):
@@ -32,7 +34,18 @@ def observe_toilets_status(toilets):
         while True:
             for toilet in toilets:
                 toilet_name=toilet.get(KEY_TOILET_NAME)
-                print 'Toilet %s distance: %0.2f cm' % (toilet_name, sample_toilet_distance(toilet))
+                dis=sample_toilet_distance(toilet)
+                now = datetime.datetime.now()
+
+                print 'Toilet %s distance: %0.2f cm' % (toilet_name, dis)
+
+                log_toilet_status({
+                        KEY_TOILET_ID: toilet.get(KEY_TOILET_ID),
+                        KEY_TOILET_NAME: toilet.get(KEY_TOILET_NAME),
+                        KEY_TOILET_TYPE: toilet.get(KEY_TOILET_TYPE),
+                        "disntance": dis,
+                        "sample_time": str(now)
+                    })
             time.sleep(1)
     except KeyboardInterrupt:
         GPIO.cleanup()
