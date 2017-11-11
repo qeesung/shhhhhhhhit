@@ -2,7 +2,7 @@
 # -*- coding:utf-8 -*-
 
 import RPi.GPIO as GPIO
-from distance import *
+from toilet_distance import *
 import time
 from toilet_config import *
 from toilet_logger import *
