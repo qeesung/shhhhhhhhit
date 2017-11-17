@@ -3,6 +3,7 @@
 
 import logging
 import json
+
 logging.basicConfig(level=logging.INFO,
     format="%(message)s",
     filename="./log/status.log"
