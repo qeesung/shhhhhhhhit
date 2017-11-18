@@ -45,9 +45,9 @@ def observe_toilets_status(toilets):
                 if is_toilet_status_changed(toilet, door_distance):
                     status=get_door_status(door_distance)
                     update_toilet_status(toilet, status)
-                    sync_toilet_status(toilet, is_door_open(status))
                     print 'Toilet %s status is changed: %s' % (toilet_name, status)
-                log_toilet_status_to_file(toilet, door_distance)
+                    sync_toilet_status(toilet, is_door_open(status))
+#                log_toilet_status_to_file(toilet, door_distance)
             time.sleep(1)
     except KeyboardInterrupt:
         GPIO.cleanup()
