@@ -3,6 +3,7 @@
 
 import RPi.GPIO as GPIO
 from toilet_distance import *
+from toilet_status import *
 import time
 from toilet_config import *
 from toilet_logger import *
@@ -44,6 +45,7 @@ def observe_toilets_status(toilets):
                 if is_toilet_status_changed(toilet, door_distance):
                     status=get_door_status(door_distance)
                     update_toilet_status(toilet, status)
+                    sync_toilet_status(toilet, is_door_open(status))
                     print 'Toilet %s status is changed: %s' % (toilet_name, status)
                 log_toilet_status_to_file(toilet, door_distance)
             time.sleep(1)
@@ -92,7 +94,7 @@ def get_door_status(door_distance):
         return STATUS_DOOR_OPEN
 
 def is_door_closed(status):
-    return status == STATUS_DOOR_CLOSED
+    return status == STATUS_DOOR_CLOSEDgg
 
 def is_door_open(status):
     return status == STATUS_DOOR_OPEN
