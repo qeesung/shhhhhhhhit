@@ -17,13 +17,13 @@ TOILET1={
 
 TOILET2={
     KEY_TOILET_ID: 2,
-    KEY_TOILET_NAME: "slot1",
+    KEY_TOILET_NAME: "slot2",
     KEY_TOILET_TRIGGER_PIN: 20,
     KEY_TOILET_ECHO_PIN: 21,
     KEY_TOILET_TYPE: "蹲的"
 }
 
-TOILETS=(TOILET1,)
+TOILETS=(TOILET1,TOILET2)
 
 if __name__ == "__main__":
     print "========== toilet list =========="
